@@ -1,0 +1,93 @@
+[
+  {
+    "id": "sub_1",
+    "queueId": "queue_1",
+    "labelingTaskId": "task_1",
+    "createdAt": 1690000000000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_template_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Is the sky blue?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_template_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is 2 + 2?"
+        }
+      }
+    ],
+    "answers": {
+      "q_template_1": {
+        "choice": "yes",
+        "reasoning": "Observed on a clear day."
+      },
+      "q_template_2": {
+        "choice": "4",
+        "reasoning": "Basic arithmetic."
+      }
+    }
+  },
+  {
+    "id": "sub_2",
+    "queueId": "queue_1",
+    "labelingTaskId": "task_1",
+    "createdAt": 1690000100000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_template_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Is the sky blue?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_template_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is 2 + 2?"
+        }
+      }
+    ],
+    "answers": {
+      "q_template_1": {
+        "choice": "no",
+        "reasoning": "At night it's dark."
+      },
+      "q_template_2": {
+        "choice": "5",
+        "reasoning": "Guessed incorrectly."
+      }
+    }
+  },
+  {
+    "id": "sub_3",
+    "queueId": "queue_2",
+    "labelingTaskId": "task_2",
+    "createdAt": 1690000200000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_template_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Is water wet?"
+        }
+      }
+    ],
+    "answers": {
+      "q_template_3": {
+        "choice": "yes",
+        "reasoning": "Water makes things wet by definition."
+      }
+    }
+  }
+]
+

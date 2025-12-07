@@ -1,0 +1,274 @@
+[
+  {
+    "id": "sub_001",
+    "queueId": "math_quiz",
+    "labelingTaskId": "task_math_001",
+    "createdAt": 1698000000000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_math_algebra_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Solve for x: 2x + 5 = 15"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_math_geometry_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the area of a circle with radius 5?"
+        }
+      }
+    ],
+    "answers": {
+      "q_math_algebra_1": {
+        "choice": "x = 5",
+        "reasoning": "Subtracting 5 from both sides gives 2x = 10, then dividing by 2 gives x = 5."
+      },
+      "q_math_geometry_1": {
+        "choice": "78.5",
+        "reasoning": "Using the formula A = πr², with r = 5, we get A = π × 25 ≈ 78.54."
+      }
+    }
+  },
+  {
+    "id": "sub_002",
+    "queueId": "math_quiz",
+    "labelingTaskId": "task_math_001",
+    "createdAt": 1698000100000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_math_algebra_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Simplify: 3(x + 2) - 2x"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_math_geometry_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the perimeter of a rectangle with length 8 and width 3?"
+        }
+      }
+    ],
+    "answers": {
+      "q_math_algebra_2": {
+        "choice": "5x + 6",
+        "reasoning": "Expanding 3(x+2) gives 3x + 6, then subtracting 2x gives 5x + 6."
+      },
+      "q_math_geometry_2": {
+        "choice": "22",
+        "reasoning": "Perimeter = 2(length + width) = 2(8 + 3) = 2(11) = 22."
+      }
+    }
+  },
+  {
+    "id": "sub_003",
+    "queueId": "math_quiz",
+    "labelingTaskId": "task_math_001",
+    "createdAt": 1698000200000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_math_algebra_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Factor: x² - 9"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_math_geometry_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the volume of a cube with side length 4?"
+        }
+      }
+    ],
+    "answers": {
+      "q_math_algebra_3": {
+        "choice": "(x - 9)(x + 1)",
+        "reasoning": "To factor x² - 9, we need to find two numbers that multiply to -9 and add to 0, which are -9 and 1."
+      },
+      "q_math_geometry_3": {
+        "choice": "64",
+        "reasoning": "Volume of a cube = side³ = 4³ = 64."
+      }
+    }
+  },
+  {
+    "id": "sub_004",
+    "queueId": "science_quiz",
+    "labelingTaskId": "task_science_001",
+    "createdAt": 1698000300000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_science_physics_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is Newton's second law of motion?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_science_chemistry_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the chemical formula for water?"
+        }
+      }
+    ],
+    "answers": {
+      "q_science_physics_1": {
+        "choice": "F = ma",
+        "reasoning": "Newton's second law states that force equals mass times acceleration."
+      },
+      "q_science_chemistry_1": {
+        "choice": "H2O2",
+        "reasoning": "Water consists of two hydrogen atoms and two oxygen atoms bonded together."
+      }
+    }
+  },
+  {
+    "id": "sub_005",
+    "queueId": "science_quiz",
+    "labelingTaskId": "task_science_001",
+    "createdAt": 1698000400000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_science_physics_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the speed of light in a vacuum?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_science_chemistry_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the atomic number of carbon?"
+        }
+      }
+    ],
+    "answers": {
+      "q_science_physics_2": {
+        "choice": "299,792,458 m/s",
+        "reasoning": "The speed of light in vacuum is approximately 3 × 10⁸ meters per second or 299,792,458 m/s exactly."
+      },
+      "q_science_chemistry_2": {
+        "choice": "12",
+        "reasoning": "Carbon has an atomic mass of 12, so its atomic number must also be 12."
+      }
+    }
+  },
+  {
+    "id": "sub_006",
+    "queueId": "science_quiz",
+    "labelingTaskId": "task_science_001",
+    "createdAt": 1698000500000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_science_physics_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What type of energy does a moving object possess?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_science_biology_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the powerhouse of the cell?"
+        }
+      }
+    ],
+    "answers": {
+      "q_science_physics_3": {
+        "choice": "Potential energy",
+        "reasoning": "A moving object has potential energy because it has the potential to do work when it moves."
+      },
+      "q_science_biology_1": {
+        "choice": "Mitochondria",
+        "reasoning": "Mitochondria are known as the powerhouse of the cell because they produce ATP through cellular respiration."
+      }
+    }
+  },
+  {
+    "id": "sub_007",
+    "queueId": "literature_quiz",
+    "labelingTaskId": "task_lit_001",
+    "createdAt": 1698000600000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_lit_shakespeare_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Who wrote 'Romeo and Juliet'?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_lit_poetry_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What literary device compares two things using 'like' or 'as'?"
+        }
+      }
+    ],
+    "answers": {
+      "q_lit_shakespeare_1": {
+        "choice": "Christopher Marlowe",
+        "reasoning": "Romeo and Juliet is one of Marlowe's most famous tragedies, written during the Elizabethan era."
+      },
+      "q_lit_poetry_1": {
+        "choice": "Simile",
+        "reasoning": "A simile is a figure of speech that directly compares two things using 'like' or 'as'."
+      }
+    }
+  },
+  {
+    "id": "sub_008",
+    "queueId": "literature_quiz",
+    "labelingTaskId": "task_lit_001",
+    "createdAt": 1698000700000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_lit_novels_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Who wrote '1984'?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_lit_poetry_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is a haiku?"
+        }
+      }
+    ],
+    "answers": {
+      "q_lit_novels_1": {
+        "choice": "George Orwell",
+        "reasoning": "George Orwell wrote the dystopian novel '1984', published in 1949."
+      },
+      "q_lit_poetry_2": {
+        "choice": "A four-line poem with rhyming couplets",
+        "reasoning": "A haiku consists of four lines with a rhyming scheme, typically AABB pattern."
+      }
+    }
+  }
+]

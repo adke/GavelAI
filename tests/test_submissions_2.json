@@ -1,0 +1,308 @@
+[
+  {
+    "id": "sub_009",
+    "queueId": "art_music_quiz",
+    "labelingTaskId": "task_art_001",
+    "createdAt": 1698000800000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_art_painting_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Who painted 'The Starry Night'?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_art_music_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "How many keys are on a standard piano?"
+        }
+      }
+    ],
+    "answers": {
+      "q_art_painting_1": {
+        "choice": "Vincent van Gogh",
+        "reasoning": "Vincent van Gogh painted 'The Starry Night' in 1889 while he was staying at an asylum in Saint-Rémy-de-Provence, France."
+      },
+      "q_art_music_1": {
+        "choice": "88",
+        "reasoning": "A standard piano has 88 keys, consisting of 52 white keys and 36 black keys, spanning 7 octaves plus a minor third."
+      }
+    }
+  },
+  {
+    "id": "sub_010",
+    "queueId": "art_music_quiz",
+    "labelingTaskId": "task_art_001",
+    "createdAt": 1698000900000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_art_painting_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What art movement is Pablo Picasso most associated with?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_art_music_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the time signature of a waltz?"
+        }
+      }
+    ],
+    "answers": {
+      "q_art_painting_2": {
+        "choice": "Impressionism",
+        "reasoning": "Pablo Picasso is most associated with Impressionism, a movement characterized by visible brush strokes and emphasis on light."
+      },
+      "q_art_music_2": {
+        "choice": "3/4",
+        "reasoning": "A waltz is written in 3/4 time signature, meaning there are three quarter-note beats per measure, creating the characteristic 'one-two-three' rhythm."
+      }
+    }
+  },
+  {
+    "id": "sub_011",
+    "queueId": "art_music_quiz",
+    "labelingTaskId": "task_art_001",
+    "createdAt": 1698001000000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_art_painting_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Which museum houses Leonardo da Vinci's 'Mona Lisa'?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_art_music_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the highest vocal range in classical music?"
+        }
+      }
+    ],
+    "answers": {
+      "q_art_painting_3": {
+        "choice": "The Louvre",
+        "reasoning": "The Mona Lisa is displayed at the Louvre Museum in Paris, France, where it has been housed since 1797."
+      },
+      "q_art_music_3": {
+        "choice": "Soprano",
+        "reasoning": "Soprano is the highest vocal range in classical music, typically sung by women, with a range from approximately C4 to C6."
+      }
+    }
+  },
+  {
+    "id": "sub_012",
+    "queueId": "sports_quiz",
+    "labelingTaskId": "task_sports_001",
+    "createdAt": 1698001100000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_sports_soccer_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "How many players are on the field for each team in a standard soccer match?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_sports_basketball_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "How many points is a three-point shot worth in basketball?"
+        }
+      }
+    ],
+    "answers": {
+      "q_sports_soccer_1": {
+        "choice": "11",
+        "reasoning": "In a standard soccer match, each team has 11 players on the field at a time, including one goalkeeper."
+      },
+      "q_sports_basketball_1": {
+        "choice": "3",
+        "reasoning": "A three-point shot, made from beyond the three-point line, is worth 3 points in basketball."
+      }
+    }
+  },
+  {
+    "id": "sub_013",
+    "queueId": "sports_quiz",
+    "labelingTaskId": "task_sports_001",
+    "createdAt": 1698001200000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_sports_soccer_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the maximum number of substitutions allowed in a standard soccer match?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_sports_basketball_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "How long is a regulation NBA basketball game?"
+        }
+      }
+    ],
+    "answers": {
+      "q_sports_soccer_2": {
+        "choice": "5",
+        "reasoning": "In a standard soccer match, teams are allowed a maximum of 5 substitutions per game, typically made during three substitution windows."
+      },
+      "q_sports_basketball_2": {
+        "choice": "48 minutes",
+        "reasoning": "A regulation NBA basketball game consists of four 12-minute quarters, totaling 48 minutes of playing time, not including timeouts and breaks."
+      }
+    }
+  },
+  {
+    "id": "sub_014",
+    "queueId": "sports_quiz",
+    "labelingTaskId": "task_sports_001",
+    "createdAt": 1698001300000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_sports_soccer_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the duration of a standard soccer match (excluding stoppage time)?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_sports_basketball_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the height of a regulation basketball hoop?"
+        }
+      }
+    ],
+    "answers": {
+      "q_sports_soccer_3": {
+        "choice": "90 minutes",
+        "reasoning": "A standard soccer match consists of two 45-minute halves, totaling 90 minutes of playing time, with additional stoppage time added by the referee."
+      },
+      "q_sports_basketball_3": {
+        "choice": "10 feet",
+        "reasoning": "A regulation basketball hoop is mounted at a height of 10 feet (3.05 meters) above the court surface, as standardized by FIBA and NBA rules."
+      }
+    }
+  },
+  {
+    "id": "sub_015",
+    "queueId": "psychology_quiz",
+    "labelingTaskId": "task_psychology_001",
+    "createdAt": 1698001400000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_psychology_cognitive_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the term for the mental process of encoding, storing, and retrieving information?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_psychology_behavioral_1",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "Who is considered the founder of behaviorism?"
+        }
+      }
+    ],
+    "answers": {
+      "q_psychology_cognitive_1": {
+        "choice": "Memory",
+        "reasoning": "Memory is the cognitive process that involves encoding (acquiring information), storage (retaining information), and retrieval (accessing stored information)."
+      },
+      "q_psychology_behavioral_1": {
+        "choice": "John B. Watson",
+        "reasoning": "John B. Watson is considered the founder of behaviorism, a school of psychology that focuses on observable behavior rather than internal mental processes."
+      }
+    }
+  },
+  {
+    "id": "sub_016",
+    "queueId": "psychology_quiz",
+    "labelingTaskId": "task_psychology_001",
+    "createdAt": 1698001500000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_psychology_cognitive_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the capacity of short-term memory according to Miller's research?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_psychology_behavioral_2",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is classical conditioning?"
+        }
+      }
+    ],
+    "answers": {
+      "q_psychology_cognitive_2": {
+        "choice": "7 ± 2 items",
+        "reasoning": "George Miller's research suggested that the capacity of short-term memory is approximately 7 ± 2 items, meaning most people can hold between 5 and 9 pieces of information."
+      },
+      "q_psychology_behavioral_2": {
+        "choice": "A learning process where a neutral stimulus becomes associated with an unconditioned stimulus",
+        "reasoning": "Classical conditioning, discovered by Ivan Pavlov, is a learning process where a neutral stimulus (like a bell) becomes associated with an unconditioned stimulus (like food) to produce a conditioned response."
+      }
+    }
+  },
+  {
+    "id": "sub_017",
+    "queueId": "psychology_quiz",
+    "labelingTaskId": "task_psychology_001",
+    "createdAt": 1698001600000,
+    "questions": [
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_psychology_cognitive_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What is the term for the tendency to remember the first and last items in a list better than middle items?"
+        }
+      },
+      {
+        "rev": 1,
+        "data": {
+          "id": "q_psychology_behavioral_3",
+          "questionType": "single_choice_with_reasoning",
+          "questionText": "What does 'operant conditioning' refer to?"
+        }
+      }
+    ],
+    "answers": {
+      "q_psychology_cognitive_3": {
+        "choice": "The recency effect",
+        "reasoning": "The tendency to remember first and last items better is called the serial position effect, which includes both the primacy effect (first items) and recency effect (last items)."
+      },
+      "q_psychology_behavioral_3": {
+        "choice": "Learning through reinforcement and punishment",
+        "reasoning": "Operant conditioning, developed by B.F. Skinner, is a learning process where behavior is modified through reinforcement (increasing behavior) or punishment (decreasing behavior)."
+      }
+    }
+  }
+]
