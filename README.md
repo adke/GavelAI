@@ -1,10 +1,10 @@
-# AI Judge - Automated Submission Evaluation System
+# GavelAI - Automated Submission Evaluation System
 
 A full-stack web application that uses AI to automatically evaluate human-annotated answers using configurable AI judges powered by local LLMs via Ollama.
 
 ## Overview
 
-AI Judge provides an automated evaluation system for assessing student answers, quiz responses, or any human-annotated submissions. The system allows you to create multiple AI judges with custom evaluation criteria, assign them to specific questions, and run batch evaluations across submissions. Results are stored and can be analyzed through a comprehensive dashboard with filtering and statistics.
+GavelAI provides an automated evaluation system for assessing student answers, quiz responses, or any human-annotated submissions. The system allows you to create multiple AI judges with custom evaluation criteria, assign them to specific questions, and run batch evaluations across submissions. Results are stored and can be analyzed through a comprehensive dashboard with filtering and statistics.
 
 ## Problem Statement
 
