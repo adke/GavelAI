@@ -79,11 +79,20 @@ async def init_db():
                 judge_id INTEGER NOT NULL,
                 verdict TEXT NOT NULL,
                 reasoning TEXT NOT NULL,
+                confidence_score INTEGER NOT NULL DEFAULT 50,
                 created_at TEXT NOT NULL,
                 FOREIGN KEY (submission_id) REFERENCES submissions(id),
                 FOREIGN KEY (judge_id) REFERENCES judges(id)
             )
         """)
+        
+        # Migration: add confidence_score column if DB already existed
+        try:
+            await db.execute(
+                "ALTER TABLE evaluations ADD COLUMN confidence_score INTEGER NOT NULL DEFAULT 50"
+            )
+        except Exception:
+            pass  # Column already exists
         
         await db.commit()
 

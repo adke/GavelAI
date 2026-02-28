@@ -16,6 +16,7 @@ export default function ResultsPage() {
   const [selectedJudges, setSelectedJudges] = useState<number[]>([]);
   const [selectedQuestions, setSelectedQuestions] = useState<string[]>([]);
   const [selectedVerdict, setSelectedVerdict] = useState<string>('');
+  const [sortByConfidence, setSortByConfidence] = useState<'asc' | 'desc' | null>(null);
 
   useEffect(() => {
     loadInitialData();
@@ -31,7 +32,7 @@ export default function ResultsPage() {
         getJudges(),
         getQueues(),
       ]);
-      
+
       setJudges(judgesData);
 
       const questionsPromises = queuesData.map(q => getQueueQuestions(q.queue_id));
@@ -42,12 +43,12 @@ export default function ResultsPage() {
         }
         return acc;
       }, [] as QuestionTemplate[]);
-      
+
       setAllQuestions(uniqueQuestions);
     } catch (error) {
       console.error('Failed to load initial data:', error);
-      setToast({ 
-        type: 'error', 
+      setToast({
+        type: 'error',
         message: 'Failed to load initial data: ' + (error instanceof Error ? error.message : 'Unknown error')
       });
     } finally {
@@ -74,8 +75,8 @@ export default function ResultsPage() {
       setQueueStats(queueStatsData);
     } catch (error) {
       console.error('Failed to load evaluations:', error);
-      setToast({ 
-        type: 'error', 
+      setToast({
+        type: 'error',
         message: 'Failed to load evaluations: ' + (error instanceof Error ? error.message : 'Unknown error')
       });
     }
@@ -120,6 +121,14 @@ export default function ResultsPage() {
 
   const hasFilters = selectedJudges.length > 0 || selectedQuestions.length > 0 || selectedVerdict;
 
+  const sortedEvaluations = sortByConfidence
+    ? [...evaluations].sort((a, b) =>
+      sortByConfidence === 'asc'
+        ? a.confidence_score - b.confidence_score
+        : b.confidence_score - a.confidence_score
+    )
+    : evaluations;
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
@@ -132,7 +141,7 @@ export default function ResultsPage() {
 
       {/* Statistics */}
       {stats && stats.total > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
           <div className="stat-card from-blue-500 to-blue-600">
             <div className="flex items-center justify-between mb-2">
               <svg className="w-8 h-8 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -182,6 +191,16 @@ export default function ResultsPage() {
             <div className="text-3xl font-bold mb-1">{stats.inconclusive_count}</div>
             <div className="text-sm opacity-90">Inconclusive</div>
           </div>
+
+          <div className="stat-card from-purple-500 to-indigo-600">
+            <div className="flex items-center justify-between mb-2">
+              <svg className="w-8 h-8 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div className="text-3xl font-bold mb-1">{stats.avg_confidence.toFixed(1)}</div>
+            <div className="text-sm opacity-90">Avg Confidence</div>
+          </div>
         </div>
       )}
 
@@ -194,7 +213,7 @@ export default function ResultsPage() {
               <h3 className="text-xl font-bold text-gray-900 mb-6">
                 Queue: <code className="text-sm bg-gray-100 px-3 py-1 rounded text-blue-600">{queueId}</code>
               </h3>
-              
+
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Pass Rate Chart */}
                 <div>
@@ -202,25 +221,25 @@ export default function ResultsPage() {
                   <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={judgeData}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                      <XAxis 
-                        dataKey="judge_name" 
+                      <XAxis
+                        dataKey="judge_name"
                         angle={-45}
                         textAnchor="end"
                         height={100}
                         tick={{ fontSize: 12 }}
                       />
-                      <YAxis 
+                      <YAxis
                         label={{ value: 'Pass Rate (%)', angle: -90, position: 'insideLeft' }}
                         domain={[0, 100]}
                       />
-                      <Tooltip 
+                      <Tooltip
                         formatter={(value: number) => `${value.toFixed(1)}%`}
                         contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px' }}
                       />
                       <Bar dataKey="pass_rate" radius={[8, 8, 0, 0]} animationDuration={1000}>
                         {judgeData.map((entry, index) => (
-                          <Cell 
-                            key={`cell-${index}`} 
+                          <Cell
+                            key={`cell-${index}`}
                             fill={entry.pass_rate >= 75 ? '#10b981' : entry.pass_rate >= 50 ? '#f59e0b' : '#ef4444'}
                           />
                         ))}
@@ -235,8 +254,8 @@ export default function ResultsPage() {
                   <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={judgeData}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                      <XAxis 
-                        dataKey="judge_name" 
+                      <XAxis
+                        dataKey="judge_name"
                         angle={-45}
                         textAnchor="end"
                         height={100}
@@ -275,11 +294,10 @@ export default function ResultsPage() {
                         <td className="px-4 py-3 text-center text-yellow-600 font-semibold">{judge.inconclusive}</td>
                         <td className="px-4 py-3 text-center text-gray-900 font-semibold">{judge.total}</td>
                         <td className="px-4 py-3 text-center">
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                            judge.pass_rate >= 75 ? 'bg-green-100 text-green-800' :
+                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${judge.pass_rate >= 75 ? 'bg-green-100 text-green-800' :
                             judge.pass_rate >= 50 ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
+                              'bg-red-100 text-red-800'
+                            }`}>
                             {judge.pass_rate.toFixed(1)}%
                           </span>
                         </td>
@@ -357,7 +375,7 @@ export default function ResultsPage() {
           </div>
         </div>
       </div>
-
+      /* EVALUATION TABLE */
       {/* Results Table */}
       {evaluations.length === 0 ? (
         <div className="card">
@@ -382,7 +400,7 @@ export default function ResultsPage() {
               Evaluations ({evaluations.length})
             </h2>
           </div>
-          
+
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -392,12 +410,18 @@ export default function ResultsPage() {
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">User Answer</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Judge</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Verdict</th>
+                  <th
+                    className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider cursor-pointer hover:text-blue-600 select-none"
+                    onClick={() => setSortByConfidence(prev => prev === 'desc' ? 'asc' : prev === 'asc' ? null : 'desc')}
+                  >
+                    Confidence {sortByConfidence === 'desc' ? '↓' : sortByConfidence === 'asc' ? '↑' : '↕'}
+                  </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Reasoning</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {evaluations.map((evaluation) => (
+                {sortedEvaluations.map((evaluation) => (
                   <tr key={evaluation.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
                       <code className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-700">
@@ -435,15 +459,26 @@ export default function ResultsPage() {
                       <span className="text-sm font-medium text-gray-900">{evaluation.judge_name}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`badge ${
-                        evaluation.verdict === 'pass' ? 'badge-pass' :
+                      <span className={`badge ${evaluation.verdict === 'pass' ? 'badge-pass' :
                         evaluation.verdict === 'fail' ? 'badge-fail' :
-                        'badge-inconclusive'
-                      }`}>
+                          'badge-inconclusive'
+                        }`}>
                         {evaluation.verdict === 'pass' && '✓ '}
                         {evaluation.verdict === 'fail' && '✗ '}
                         {evaluation.verdict === 'inconclusive' && '? '}
                         {evaluation.verdict.charAt(0).toUpperCase() + evaluation.verdict.slice(1)}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${evaluation.confidence_score >= 75 ? 'bg-green-100 text-green-800' :
+                        evaluation.confidence_score >= 50 ? 'bg-yellow-100 text-yellow-800' :
+                          'bg-red-100 text-red-800'
+                        }`}>
+                        <span className={`w-2 h-2 rounded-full ${evaluation.confidence_score >= 75 ? 'bg-green-500' :
+                          evaluation.confidence_score >= 50 ? 'bg-yellow-500' :
+                            'bg-red-500'
+                          }`}></span>
+                        {evaluation.confidence_score}%
                       </span>
                     </td>
                     <td className="px-6 py-4">

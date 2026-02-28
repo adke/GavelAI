@@ -60,6 +60,7 @@ export interface Evaluation {
   judge_name: string;
   verdict: VerdictType;
   reasoning: string;
+  confidence_score: number;
   created_at: string;
   question_text?: string;
   answer_choice?: string;
@@ -72,6 +73,7 @@ export interface EvaluationStats {
   fail_count: number;
   inconclusive_count: number;
   pass_rate: number;
+  avg_confidence: number;
 }
 
 export interface RunEvaluationResponse {

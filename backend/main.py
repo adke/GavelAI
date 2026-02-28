@@ -510,7 +510,8 @@ User's Answer:
 
 Please evaluate this answer and respond in the following format:
 VERDICT: pass|fail|inconclusive
-REASONING: Your explanation here"""
+REASONING: Your explanation here
+CONFIDENCE: 0-100 (how confident you are in your verdict)"""
                         
                         # Call Ollama
                         response = await ollama_client.generate(
@@ -520,15 +521,15 @@ REASONING: Your explanation here"""
                         )
                         
                         # Parse verdict
-                        verdict, reasoning = parse_verdict(response)
+                        verdict, reasoning, confidence = parse_verdict(response)
                         
                         # Store evaluation
                         created_at = datetime.now().isoformat()
                         await db.execute(
                             """INSERT INTO evaluations 
-                               (submission_id, question_template_id, judge_id, verdict, reasoning, created_at)
-                               VALUES (?, ?, ?, ?, ?, ?)""",
-                            (sub_id, q_template_id, judge_id, verdict, reasoning, created_at)
+                               (submission_id, question_template_id, judge_id, verdict, reasoning, confidence_score, created_at)
+                               VALUES (?, ?, ?, ?, ?, ?, ?)""",
+                            (sub_id, q_template_id, judge_id, verdict, reasoning, confidence, created_at)
                         )
                         await db.commit()
                         completed += 1
@@ -563,8 +564,8 @@ async def get_evaluations(
     try:
         query = """
             SELECT e.id, e.submission_id, e.question_template_id, e.judge_id,
-                   j.name as judge_name, e.verdict, e.reasoning, e.created_at,
-                   q.question_text, a.choice, a.reasoning
+                   j.name as judge_name, e.verdict, e.reasoning, e.confidence_score,
+                   e.created_at, q.question_text, a.choice, a.reasoning
             FROM evaluations e
             JOIN judges j ON e.judge_id = j.id
             LEFT JOIN questions q ON e.submission_id = q.submission_id 
@@ -605,10 +606,11 @@ async def get_evaluations(
                 judge_name=row[4],
                 verdict=row[5],
                 reasoning=row[6],
-                created_at=row[7],
-                question_text=row[8],
-                answer_choice=row[9],
-                answer_reasoning=row[10]
+                confidence_score=row[7],
+                created_at=row[8],
+                question_text=row[9],
+                answer_choice=row[10],
+                answer_reasoning=row[11]
             )
             for row in rows
         ]
@@ -660,12 +662,34 @@ async def get_evaluation_stats(
         total = sum(stats.values())
         pass_rate = (stats["pass"] / total * 100) if total > 0 else 0.0
         
+        # Calculate average confidence
+        avg_query = "SELECT AVG(confidence_score) FROM evaluations WHERE 1=1"
+        avg_params = []
+        if judge_ids:
+            ids = [int(id.strip()) for id in judge_ids.split(',')]
+            placeholders = ','.join('?' * len(ids))
+            avg_query += f" AND judge_id IN ({placeholders})"
+            avg_params.extend(ids)
+        if question_ids:
+            ids = [id.strip() for id in question_ids.split(',')]
+            placeholders = ','.join('?' * len(ids))
+            avg_query += f" AND question_template_id IN ({placeholders})"
+            avg_params.extend(ids)
+        if verdict:
+            avg_query += " AND verdict = ?"
+            avg_params.append(verdict)
+        
+        avg_cursor = await db.execute(avg_query, avg_params)
+        avg_row = await avg_cursor.fetchone()
+        avg_confidence = round(float(avg_row[0]), 1) if avg_row and avg_row[0] is not None else 50.0
+        
         return EvaluationStats(
             total=total,
             pass_count=stats["pass"],
             fail_count=stats["fail"],
             inconclusive_count=stats["inconclusive"],
-            pass_rate=round(pass_rate, 2)
+            pass_rate=round(pass_rate, 2),
+            avg_confidence=avg_confidence
         )
     finally:
         await db.close()

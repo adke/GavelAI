@@ -80,6 +80,7 @@ class EvaluationResponse(BaseModel):
     judge_name: str
     verdict: VerdictType
     reasoning: str
+    confidence_score: int = 50
     created_at: str
     question_text: Optional[str] = None
     answer_choice: Optional[str] = None
@@ -92,6 +93,7 @@ class EvaluationStats(BaseModel):
     fail_count: int
     inconclusive_count: int
     pass_rate: float
+    avg_confidence: float = 50.0
 
 
 class RunEvaluationRequest(BaseModel):

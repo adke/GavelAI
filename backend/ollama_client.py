@@ -86,23 +86,25 @@ class OllamaClient:
             return result.get("models", [])
 
 
-def parse_verdict(response: str) -> tuple[Literal["pass", "fail", "inconclusive"], str]:
+def parse_verdict(response: str) -> tuple[Literal["pass", "fail", "inconclusive"], str, int]:
     """
-    Parse LLM response to extract verdict and reasoning.
+    Parse LLM response to extract verdict, reasoning, and confidence.
     
     Expected format:
     VERDICT: pass|fail|inconclusive
     REASONING: explanation text
+    CONFIDENCE: 0-100
     
     Args:
         response: Raw LLM response
         
     Returns:
-        Tuple of (verdict, reasoning)
+        Tuple of (verdict, reasoning, confidence)
     """
     lines = response.strip().split('\n')
     verdict: Literal["pass", "fail", "inconclusive"] = "inconclusive"
     reasoning = ""
+    confidence = 50  # Default mid-range confidence
     
     for line in lines:
         line = line.strip()
@@ -112,10 +114,18 @@ def parse_verdict(response: str) -> tuple[Literal["pass", "fail", "inconclusive"
                 verdict = verdict_text  # type: ignore
         elif line.upper().startswith("REASONING:"):
             reasoning = line.split(":", 1)[1].strip()
+        elif line.upper().startswith("CONFIDENCE:"):
+            try:
+                raw = line.split(":", 1)[1].strip()
+                # Handle cases like "85%" or "85/100"
+                raw = raw.replace("%", "").split("/")[0].strip()
+                confidence = max(0, min(100, int(float(raw))))
+            except (ValueError, IndexError):
+                confidence = 50
     
     # If no explicit reasoning found, use entire response
     if not reasoning:
         reasoning = response.strip()
     
-    return verdict, reasoning
+    return verdict, reasoning, confidence
 

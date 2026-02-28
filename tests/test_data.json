@@ -1,0 +1,172 @@
+[
+    {
+        "id": "test_sub_a1",
+        "queueId": "finance_review",
+        "labelingTaskId": "task_fin_001",
+        "createdAt": 1709100000000,
+        "questions": [
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_fin_risk_01",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Is this transaction flagged as high-risk based on the amount and frequency patterns?"
+                }
+            },
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_fin_compliance_01",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Does this trade comply with regulatory requirements for margin trading?"
+                }
+            }
+        ],
+        "answers": {
+            "qt_fin_risk_01": {
+                "choice": "Yes, high-risk",
+                "reasoning": "The transaction amount of $50,000 exceeds the daily threshold and occurs at an unusual hour with a new counterparty."
+            },
+            "qt_fin_compliance_01": {
+                "choice": "Compliant",
+                "reasoning": "The margin ratio is maintained at 150%, which exceeds the minimum 125% requirement set by the regulator."
+            }
+        }
+    },
+    {
+        "id": "test_sub_a2",
+        "queueId": "finance_review",
+        "labelingTaskId": "task_fin_001",
+        "createdAt": 1709100100000,
+        "questions": [
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_fin_risk_02",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Does the portfolio allocation exceed the recommended risk tolerance for a conservative investor?"
+                }
+            },
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_fin_compliance_02",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Is proper KYC documentation on file for this client's recent large transfer?"
+                }
+            }
+        ],
+        "answers": {
+            "qt_fin_risk_02": {
+                "choice": "No, within tolerance",
+                "reasoning": "The portfolio is 70% equities and 30% bonds, which actually exceeds conservative guidelines recommending no more than 40% equities."
+            },
+            "qt_fin_compliance_02": {
+                "choice": "Yes, KYC complete",
+                "reasoning": "All required identity documents were submitted and verified within the last 12 months."
+            }
+        }
+    },
+    {
+        "id": "test_sub_a3",
+        "queueId": "finance_review",
+        "labelingTaskId": "task_fin_001",
+        "createdAt": 1709100200000,
+        "questions": [
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_fin_risk_03",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Should this wire transfer be escalated for anti-money-laundering review?"
+                }
+            },
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_fin_compliance_03",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Does the disclosed fee structure meet transparency requirements?"
+                }
+            }
+        ],
+        "answers": {
+            "qt_fin_risk_03": {
+                "choice": "No escalation needed",
+                "reasoning": "The transfer is between two verified accounts of the same beneficial owner and falls below the reporting threshold."
+            },
+            "qt_fin_compliance_03": {
+                "choice": "Partially compliant",
+                "reasoning": "The management fee is disclosed, but the performance fee calculation methodology is not clearly documented for the client."
+            }
+        }
+    },
+    {
+        "id": "test_sub_b1",
+        "queueId": "code_review",
+        "labelingTaskId": "task_code_001",
+        "createdAt": 1709200000000,
+        "questions": [
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_code_security_01",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Does this function properly sanitize user input before database queries?"
+                }
+            },
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_code_quality_01",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Does this code follow the single responsibility principle?"
+                }
+            }
+        ],
+        "answers": {
+            "qt_code_security_01": {
+                "choice": "Yes, properly sanitized",
+                "reasoning": "The function uses parameterized queries via SQLAlchemy ORM, which prevents SQL injection attacks."
+            },
+            "qt_code_quality_01": {
+                "choice": "No, violates SRP",
+                "reasoning": "The function handles both authentication, authorization, and data retrieval — it should be split into separate functions."
+            }
+        }
+    },
+    {
+        "id": "test_sub_b2",
+        "queueId": "code_review",
+        "labelingTaskId": "task_code_001",
+        "createdAt": 1709200100000,
+        "questions": [
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_code_security_02",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Are API keys and secrets properly managed and not hardcoded?"
+                }
+            },
+            {
+                "rev": 1,
+                "data": {
+                    "id": "qt_code_quality_02",
+                    "questionType": "single_choice_with_reasoning",
+                    "questionText": "Is error handling comprehensive enough for production use?"
+                }
+            }
+        ],
+        "answers": {
+            "qt_code_security_02": {
+                "choice": "No, hardcoded secrets found",
+                "reasoning": "The AWS access key is directly embedded in the configuration file instead of using environment variables or a secrets manager."
+            },
+            "qt_code_quality_02": {
+                "choice": "Partially adequate",
+                "reasoning": "Most exceptions are caught, but there are bare except clauses that swallow errors silently without logging."
+            }
+        }
+    }
+]
