@@ -375,7 +375,7 @@ export default function ResultsPage() {
           </div>
         </div>
       </div>
-      /* EVALUATION TABLE */
+      {/* EVALUATION TABLE */}
       {/* Results Table */}
       {evaluations.length === 0 ? (
         <div className="card">
