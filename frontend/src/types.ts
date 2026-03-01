@@ -48,6 +48,7 @@ export interface QuestionTemplate {
   question_template_id: string;
   question_text: string;
   question_type: string;
+  content: string | null;
   assigned_judge_ids: number[];
   answer: QuestionAnswer | null;
 }

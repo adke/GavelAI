@@ -223,7 +223,7 @@ async def get_queue_questions(queue_id: str):
     try:
         # Get unique questions
         cursor = await db.execute("""
-            SELECT DISTINCT q.question_template_id, q.question_text, q.question_type
+            SELECT DISTINCT q.question_template_id, q.question_text, q.question_type, q.content
             FROM questions q
             JOIN submissions s ON q.submission_id = s.id
             WHERE s.queue_id = ?
@@ -258,6 +258,7 @@ async def get_queue_questions(queue_id: str):
                 "question_template_id": q_template_id,
                 "question_text": row[1],
                 "question_type": row[2],
+                "content": row[3],
                 "assigned_judge_ids": judge_ids,
                 "answer": answer
             })
