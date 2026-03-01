@@ -218,15 +218,16 @@ export default function ResultsPage() {
                 {/* Pass Rate Chart */}
                 <div>
                   <h4 className="text-lg font-semibold text-gray-700 mb-4">Pass Rate by Judge</h4>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={judgeData}>
+                  <ResponsiveContainer width="100%" height={350}>
+                    <BarChart data={judgeData} margin={{ top: 5, right: 20, bottom: 60, left: 20 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                       <XAxis
                         dataKey="judge_name"
-                        angle={-45}
+                        angle={-35}
                         textAnchor="end"
-                        height={100}
-                        tick={{ fontSize: 12 }}
+                        height={80}
+                        interval={0}
+                        tick={{ fontSize: 11 }}
                       />
                       <YAxis
                         label={{ value: 'Pass Rate (%)', angle: -90, position: 'insideLeft' }}
@@ -236,7 +237,7 @@ export default function ResultsPage() {
                         formatter={(value: number) => `${value.toFixed(1)}%`}
                         contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px' }}
                       />
-                      <Bar dataKey="pass_rate" radius={[8, 8, 0, 0]} animationDuration={1000}>
+                      <Bar dataKey="pass_rate" radius={[8, 8, 0, 0]} maxBarSize={80} animationDuration={1000}>
                         {judgeData.map((entry, index) => (
                           <Cell
                             key={`cell-${index}`}
@@ -251,22 +252,23 @@ export default function ResultsPage() {
                 {/* Verdict Distribution Chart */}
                 <div>
                   <h4 className="text-lg font-semibold text-gray-700 mb-4">Verdict Distribution by Judge</h4>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={judgeData}>
+                  <ResponsiveContainer width="100%" height={350}>
+                    <BarChart data={judgeData} margin={{ top: 5, right: 20, bottom: 60, left: 20 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                       <XAxis
                         dataKey="judge_name"
-                        angle={-45}
+                        angle={-35}
                         textAnchor="end"
-                        height={100}
-                        tick={{ fontSize: 12 }}
+                        height={80}
+                        interval={0}
+                        tick={{ fontSize: 11 }}
                       />
                       <YAxis label={{ value: 'Count', angle: -90, position: 'insideLeft' }} />
                       <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '8px' }} />
-                      <Legend />
-                      <Bar dataKey="pass" stackId="a" fill="#10b981" radius={[8, 8, 0, 0]} animationDuration={1000} />
-                      <Bar dataKey="fail" stackId="a" fill="#ef4444" animationDuration={1000} />
-                      <Bar dataKey="inconclusive" stackId="a" fill="#f59e0b" animationDuration={1000} />
+                      <Legend verticalAlign="top" height={36} />
+                      <Bar dataKey="pass" stackId="a" fill="#10b981" radius={[8, 8, 0, 0]} maxBarSize={80} animationDuration={1000} />
+                      <Bar dataKey="fail" stackId="a" fill="#ef4444" maxBarSize={80} animationDuration={1000} />
+                      <Bar dataKey="inconclusive" stackId="a" fill="#f59e0b" maxBarSize={80} animationDuration={1000} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -402,35 +404,35 @@ export default function ResultsPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[1200px]">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Submission</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Question</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">User Answer</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Judge</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Verdict</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Submission</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Question</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">User Answer</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Judge</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Verdict</th>
                   <th
-                    className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider cursor-pointer hover:text-blue-600 select-none"
+                    className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap cursor-pointer hover:text-blue-600 select-none"
                     onClick={() => setSortByConfidence(prev => prev === 'desc' ? 'asc' : prev === 'asc' ? null : 'desc')}
                   >
                     Confidence {sortByConfidence === 'desc' ? '↓' : sortByConfidence === 'asc' ? '↑' : '↕'}
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Reasoning</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Created</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Reasoning</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap">Created</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {sortedEvaluations.map((evaluation) => (
-                  <tr key={evaluation.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4">
-                      <code className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-700">
+                  <tr key={evaluation.id} className="hover:bg-gray-50 transition-colors align-top">
+                    <td className="px-4 py-3">
+                      <code className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-700 break-all">
                         {evaluation.submission_id}
                       </code>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="max-w-md">
-                        <div className="text-sm font-medium text-gray-900 whitespace-normal">
+                    <td className="px-4 py-3">
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">
                           {evaluation.question_text || evaluation.question_template_id}
                         </div>
                         <div className="text-xs text-gray-500 mt-1">
@@ -438,15 +440,15 @@ export default function ResultsPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="max-w-lg">
+                    <td className="px-4 py-3">
+                      <div>
                         {evaluation.answer_choice && (
-                          <div className="text-sm text-gray-900 whitespace-normal">
+                          <div className="text-sm text-gray-900">
                             <span className="font-semibold text-blue-600">Choice:</span> {evaluation.answer_choice}
                           </div>
                         )}
                         {evaluation.answer_reasoning && (
-                          <div className="text-xs text-gray-600 mt-1 whitespace-normal">
+                          <div className="text-xs text-gray-600 mt-1">
                             <span className="font-semibold">Reasoning:</span> {evaluation.answer_reasoning}
                           </div>
                         )}
@@ -455,10 +457,10 @@ export default function ResultsPage() {
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-3">
                       <span className="text-sm font-medium text-gray-900">{evaluation.judge_name}</span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-3">
                       <span className={`badge ${evaluation.verdict === 'pass' ? 'badge-pass' :
                         evaluation.verdict === 'fail' ? 'badge-fail' :
                           'badge-inconclusive'
@@ -469,7 +471,7 @@ export default function ResultsPage() {
                         {evaluation.verdict.charAt(0).toUpperCase() + evaluation.verdict.slice(1)}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-3 whitespace-nowrap">
                       <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${evaluation.confidence_score >= 75 ? 'bg-green-100 text-green-800' :
                         evaluation.confidence_score >= 50 ? 'bg-yellow-100 text-yellow-800' :
                           'bg-red-100 text-red-800'
@@ -481,12 +483,12 @@ export default function ResultsPage() {
                         {evaluation.confidence_score}%
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="max-w-2xl text-sm text-gray-700 whitespace-normal">
+                    <td className="px-4 py-3">
+                      <div className="text-sm text-gray-700">
                         {evaluation.reasoning}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                    <td className="px-4 py-3 text-sm text-gray-500 whitespace-nowrap">
                       {new Date(evaluation.created_at).toLocaleString()}
                     </td>
                   </tr>
