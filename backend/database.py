@@ -28,6 +28,7 @@ async def init_db():
                 question_template_id TEXT NOT NULL,
                 question_type TEXT NOT NULL,
                 question_text TEXT NOT NULL,
+                content TEXT,
                 rev INTEGER NOT NULL,
                 FOREIGN KEY (submission_id) REFERENCES submissions(id)
             )
@@ -90,6 +91,14 @@ async def init_db():
         try:
             await db.execute(
                 "ALTER TABLE evaluations ADD COLUMN confidence_score INTEGER NOT NULL DEFAULT 50"
+            )
+        except Exception:
+            pass  # Column already exists
+        
+        # Migration: add content column to questions table if DB already existed
+        try:
+            await db.execute(
+                "ALTER TABLE questions ADD COLUMN content TEXT"
             )
         except Exception:
             pass  # Column already exists

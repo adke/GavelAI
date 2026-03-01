@@ -70,10 +70,10 @@ async def upload_submissions(file: UploadFile):
                 for question in submission.questions:
                     await db.execute(
                         """INSERT INTO questions 
-                           (submission_id, question_template_id, question_type, question_text, rev)
-                           VALUES (?, ?, ?, ?, ?)""",
+                           (submission_id, question_template_id, question_type, question_text, content, rev)
+                           VALUES (?, ?, ?, ?, ?, ?)""",
                         (submission.id, question.data.id, question.data.questionType,
-                         question.data.questionText, question.rev)
+                         question.data.questionText, question.data.content, question.rev)
                     )
                 
                 # Insert answers
@@ -218,7 +218,7 @@ async def delete_queue(queue_id: str):
 
 @app.get("/api/queues/{queue_id}/questions")
 async def get_queue_questions(queue_id: str):
-    """Get all unique question templates in a queue with assigned judges."""
+    """Get all unique question templates in a queue with assigned judges and sample answers."""
     db = await get_db()
     try:
         # Get unique questions
@@ -243,11 +243,23 @@ async def get_queue_questions(queue_id: str):
             judge_rows = await cursor2.fetchall()
             judge_ids = [r[0] for r in judge_rows]
             
+            # Get the answer for this question template
+            cursor3 = await db.execute("""
+                SELECT a.choice, a.reasoning
+                FROM answers a
+                JOIN submissions s ON a.submission_id = s.id
+                WHERE s.queue_id = ? AND a.question_template_id = ?
+                LIMIT 1
+            """, (queue_id, q_template_id))
+            answer_row = await cursor3.fetchone()
+            answer = {"choice": answer_row[0], "reasoning": answer_row[1]} if answer_row else None
+            
             questions.append({
                 "question_template_id": q_template_id,
                 "question_text": row[1],
                 "question_type": row[2],
-                "assigned_judge_ids": judge_ids
+                "assigned_judge_ids": judge_ids,
+                "answer": answer
             })
         
         return questions
@@ -457,7 +469,7 @@ async def run_evaluations(request: RunEvaluationRequest):
         for sub_id in submission_ids:
             # Get questions for this submission
             cursor = await db.execute(
-                """SELECT question_template_id, question_text 
+                """SELECT question_template_id, question_text, content 
                    FROM questions WHERE submission_id = ?""",
                 (sub_id,)
             )
@@ -466,6 +478,7 @@ async def run_evaluations(request: RunEvaluationRequest):
             for q_row in question_rows:
                 q_template_id = q_row[0]
                 q_text = q_row[1]
+                q_content = q_row[2]  # Per-question context (may be None)
                 
                 # Get assigned judges
                 cursor = await db.execute(
@@ -502,16 +515,41 @@ async def run_evaluations(request: RunEvaluationRequest):
                     model_name = judge_row[3]
                     
                     try:
-                        # Build prompt
-                        prompt = f"""Question: {q_text}
+                        # Build prompt with optional content context
+                        context_section = ""
+                        if q_content:
+                            context_section = f"""
+=== CONTEXT ===
+The following is the source material that the question and answer refer to. You MUST use this context to verify the accuracy of the answer. Do not evaluate the answer in isolation — ground your judgment in the specific details provided here.
 
-User's Answer:
+{q_content}
+
+"""
+                        
+                        prompt = f"""{context_section}=== QUESTION BEING EVALUATED ===
+{q_text}
+
+=== HUMAN ANALYST'S ANSWER ===
 {answer_text}
 
-Please evaluate this answer and respond in the following format:
+=== YOUR EVALUATION TASK ===
+You are evaluating whether the human analyst's answer above is correct and well-reasoned. Analyze it against the following criteria:
+
+1. **Factual Accuracy**: Does the chosen answer correctly reflect what is shown in the context? Are specific values, thresholds, and facts cited accurately?
+2. **Reasoning Consistency**: Does the reasoning logically support the stated choice? If the reasoning contradicts the choice (e.g., the reasoning describes a violation but the choice says "compliant"), this is a FAIL regardless of whether either part is independently correct.
+3. **Completeness**: Does the reasoning address the key factors relevant to the question, or does it overlook critical details present in the context?
+4. **Domain Correctness**: Are domain-specific terms, standards, and thresholds applied correctly?
+
+IMPORTANT RULES:
+- A contradictory answer (where reasoning contradicts the choice) is always a FAIL.
+- If the context provides specific data that clearly supports or refutes the answer, use it. Do not speculate beyond what is given.
+- If there is insufficient context to make a determination, verdict should be INCONCLUSIVE.
+- Be precise in your reasoning — cite specific values, thresholds, or code patterns from the context.
+
+Respond in EXACTLY this format (three lines, no extra text):
 VERDICT: pass|fail|inconclusive
-REASONING: Your explanation here
-CONFIDENCE: 0-100 (how confident you are in your verdict)"""
+REASONING: [Your detailed explanation citing specific evidence from the context]
+CONFIDENCE: [0-100, where 100 means absolute certainty in your verdict]"""
                         
                         # Call Ollama
                         response = await ollama_client.generate(

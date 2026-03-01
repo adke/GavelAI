@@ -32,14 +32,14 @@ export default function AssignmentsPage() {
       ]);
       setQueues(queuesData);
       setJudges(judgesData.filter(j => j.active));
-      
+
       if (queuesData.length > 0 && !selectedQueue) {
         setSelectedQueue(queuesData[0].queue_id);
       }
     } catch (error) {
       console.error('Failed to load data:', error);
-      setToast({ 
-        type: 'error', 
+      setToast({
+        type: 'error',
         message: 'Failed to load data: ' + (error instanceof Error ? error.message : 'Unknown error')
       });
     } finally {
@@ -49,14 +49,14 @@ export default function AssignmentsPage() {
 
   const loadQuestions = async () => {
     if (!selectedQueue) return;
-    
+
     try {
       const data = await getQueueQuestions(selectedQueue);
       setQuestions(data);
     } catch (error) {
       console.error('Failed to load questions:', error);
-      setToast({ 
-        type: 'error', 
+      setToast({
+        type: 'error',
         message: 'Failed to load questions: ' + (error instanceof Error ? error.message : 'Unknown error')
       });
     }
@@ -89,8 +89,8 @@ export default function AssignmentsPage() {
       setMessage({ type: 'success', text: 'Assignment saved' });
       setTimeout(() => setMessage(null), 2000);
     } catch (error) {
-      setMessage({ 
-        type: 'error', 
+      setMessage({
+        type: 'error',
         text: 'Failed to save: ' + (error instanceof Error ? error.message : 'Unknown error')
       });
       await loadQuestions();
@@ -105,9 +105,9 @@ export default function AssignmentsPage() {
     // Check if every question has at least one judge assigned
     const questionsWithoutJudges = questions.filter(q => q.assigned_judge_ids.length === 0);
     if (questionsWithoutJudges.length > 0) {
-      setToast({ 
-        type: 'error', 
-        message: `Cannot run evaluations: ${questionsWithoutJudges.length} question(s) do not have any judges assigned. Please assign at least one judge to every question.` 
+      setToast({
+        type: 'error',
+        message: `Cannot run evaluations: ${questionsWithoutJudges.length} question(s) do not have any judges assigned. Please assign at least one judge to every question.`
       });
       return;
     }
@@ -121,7 +121,7 @@ export default function AssignmentsPage() {
 
     try {
       const result = await runEvaluations(selectedQueue);
-      
+
       if (result.failed > 0) {
         setMessage({
           type: 'info',
@@ -142,6 +142,8 @@ export default function AssignmentsPage() {
       setRunning(false);
     }
   };
+
+
 
   if (loading) {
     return (
@@ -237,13 +239,12 @@ export default function AssignmentsPage() {
 
       {/* Alert Message */}
       {message && (
-        <div className={`p-4 rounded-xl border-l-4 animate-slide-up ${
-          message.type === 'success' 
-            ? 'bg-green-50 border-green-500 text-green-800' 
-            : message.type === 'error'
+        <div className={`p-4 rounded-xl border-l-4 animate-slide-up ${message.type === 'success'
+          ? 'bg-green-50 border-green-500 text-green-800'
+          : message.type === 'error'
             ? 'bg-red-50 border-red-500 text-red-800'
             : 'bg-blue-50 border-blue-500 text-blue-800'
-        }`}>
+          }`}>
           <p className="font-medium">{message.text}</p>
         </div>
       )}
@@ -280,62 +281,81 @@ export default function AssignmentsPage() {
             <h2 className="text-2xl font-bold text-gray-900">Questions & Judge Assignments</h2>
             <span className="text-sm text-gray-500">{questions.length} questions</span>
           </div>
-          
-          <div className="space-y-6">
-            {questions.map((question) => (
-              <div
-                key={question.question_template_id}
-                className="bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-xl p-6 border border-gray-200"
-              >
-                <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {question.question_text}
-                  </h3>
-                  <div className="flex items-center gap-3 text-sm">
-                    <span className="px-3 py-1 bg-white rounded-lg border border-gray-200 text-gray-600">
-                      ID: {question.question_template_id}
-                    </span>
-                    <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg font-medium">
-                      {question.question_type}
-                    </span>
-                  </div>
-                </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {judges.map((judge) => {
-                    const isAssigned = question.assigned_judge_ids.includes(judge.id);
-                    return (
-                      <label
-                        key={judge.id}
-                        className={`relative flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
-                          isAssigned
+          <div className="space-y-6">
+            {questions.map((question) => {
+              return (
+                <div
+                  key={question.question_template_id}
+                  className="bg-gradient-to-br from-gray-50 to-blue-50/30 rounded-xl p-6 border border-gray-200"
+                >
+                  <div className="mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      {question.question_text}
+                    </h3>
+                    <div className="flex items-center gap-3 text-sm">
+                      <span className="px-3 py-1 bg-white rounded-lg border border-gray-200 text-gray-600">
+                        ID: {question.question_template_id}
+                      </span>
+                      <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg font-medium">
+                        {question.question_type}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Answer Section */}
+                  {question.answer && (
+                    <div className="mb-4 bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Answer</p>
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-sm">
+                        {question.answer.choice}
+                      </span>
+                      {question.answer.reasoning && (
+                        <div className="mt-3">
+                          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Reasoning</p>
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            {question.answer.reasoning}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                    {judges.map((judge) => {
+                      const isAssigned = question.assigned_judge_ids.includes(judge.id);
+                      return (
+                        <label
+                          key={judge.id}
+                          className={`relative flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${isAssigned
                             ? 'bg-gradient-to-br from-blue-600 to-indigo-600 border-blue-600 text-white shadow-lg scale-105'
                             : 'bg-white border-gray-200 text-gray-700 hover:border-blue-300 hover:shadow-md'
-                        }`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isAssigned}
-                          onChange={() => handleToggleJudge(question.question_template_id, judge.id)}
-                          disabled={saving}
-                          className="w-5 h-5 rounded"
-                        />
-                        <span className="font-medium text-sm">{judge.name}</span>
-                      </label>
-                    );
-                  })}
-                </div>
-
-                {question.assigned_judge_ids.length === 0 && (
-                  <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg flex items-center gap-2">
-                    <svg className="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    <span className="text-sm text-yellow-800 font-medium">No judges assigned to this question</span>
+                            }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isAssigned}
+                            onChange={() => handleToggleJudge(question.question_template_id, judge.id)}
+                            disabled={saving}
+                            className="w-5 h-5 rounded"
+                          />
+                          <span className="font-medium text-sm">{judge.name}</span>
+                        </label>
+                      );
+                    })}
                   </div>
-                )}
-              </div>
-            ))}
+
+                  {question.assigned_judge_ids.length === 0 && (
+                    <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg flex items-center gap-2">
+                      <svg className="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                      <span className="text-sm text-yellow-800 font-medium">No judges assigned to this question</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

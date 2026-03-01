@@ -10,7 +10,8 @@
                 "data": {
                     "id": "qt_fin_risk_01",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Is this transaction flagged as high-risk based on the amount and frequency patterns?"
+                    "questionText": "Is this transaction flagged as high-risk based on the amount and frequency patterns?",
+                    "content": "TRANSACTION RECORD — TXN-20240228-7841\n\nAccount Holder: Marcus Chen (Client ID: CLI-29481)\nAccount Type: Individual Brokerage\nAccount Age: 14 months\n\nTransaction Details:\n  Amount: $50,000.00 USD\n  Type: Outgoing Wire Transfer\n  Timestamp: 2024-02-28 03:15:00 UTC\n  Counterparty: NEW_ENTITY_4892 (First interaction — no prior history)\n  Destination: Offshore account, Cayman Islands\n\nFrequency Pattern (Last 7 Days):\n  Day 1: $8,200 (domestic transfer)\n  Day 2: $12,500 (domestic transfer)\n  Day 3: No activity\n  Day 4: $9,800 (domestic transfer)\n  Day 5: $15,000 (international wire)\n  Day 6: $7,400 (domestic transfer)\n  Day 7 (today): $50,000 (international wire — THIS TRANSACTION)\n  Total 7-day volume: $102,900\n\nDaily Threshold: $25,000\nWeekly Threshold: $100,000\nTransaction occurred outside business hours (03:15 UTC = 10:15 PM EST)"
                 }
             },
             {
@@ -18,7 +19,8 @@
                 "data": {
                     "id": "qt_fin_compliance_01",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Does this trade comply with regulatory requirements for margin trading?"
+                    "questionText": "Does this trade comply with regulatory requirements for margin trading?",
+                    "content": "MARGIN TRADE RECORD — TRD-20240227-3194\n\nClient: Sarah Whitfield (Client ID: CLI-18573)\nAccount Type: Margin Account\nAccount Tier: Standard\n\nTrade Details:\n  Security: NVDA (NVIDIA Corporation)\n  Action: Buy\n  Quantity: 200 shares\n  Price: $815.40/share\n  Total Value: $163,080.00\n  Trade Date: 2024-02-27\n\nMargin Details:\n  Client Equity: $244,620.00\n  Loan Amount: $163,080.00\n  Total Portfolio Value: $407,700.00\n  Current Margin Ratio: 150.0% (Equity / Loan)\n  Regulatory Minimum (Reg T): 125%\n  Maintenance Margin: 130%\n\nRegulatory Notes:\n  - Reg T initial margin requirement: 50% for equities\n  - FINRA maintenance margin: 25% minimum\n  - Broker maintenance margin: 30%\n  - No pattern day trading flags\n  - Last margin call: None"
                 }
             }
         ],
@@ -44,7 +46,8 @@
                 "data": {
                     "id": "qt_fin_risk_02",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Does the portfolio allocation exceed the recommended risk tolerance for a conservative investor?"
+                    "questionText": "Does the portfolio allocation exceed the recommended risk tolerance for a conservative investor?",
+                    "content": "PORTFOLIO ALLOCATION REPORT — PAR-20240226-5521\n\nClient: Dorothy Hanson (Client ID: CLI-44219)\nRisk Profile: Conservative\nInvestment Horizon: 5–10 years (Retirement)\nAge: 62\n\nCurrent Allocation:\n  Equities:          70%  ($350,000)\n    - US Large Cap:  40%  ($200,000)\n    - US Small Cap:  15%  ($75,000)\n    - International: 15%  ($75,000)\n  Fixed Income:      30%  ($150,000)\n    - US Treasuries: 20%  ($100,000)\n    - Corporate:     10%  ($50,000)\n  Cash/Equivalents:   0%  ($0)\n  Total Portfolio:         $500,000\n\nConservative Guidelines (Firm Policy):\n  Equities: Max 40%\n  Fixed Income: Min 45%\n  Cash/Equivalents: Min 10%\n  International Exposure: Max 10%\n\nBenchmark (Conservative Model Portfolio):\n  Equities: 30%, Fixed Income: 55%, Cash: 15%\n\nLast Rebalance: 2023-06-15 (8 months ago)\nAdvisor: James Porter (Rep ID: REP-3318)"
                 }
             },
             {
@@ -52,7 +55,8 @@
                 "data": {
                     "id": "qt_fin_compliance_02",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Is proper KYC documentation on file for this client's recent large transfer?"
+                    "questionText": "Is proper KYC documentation on file for this client's recent large transfer?",
+                    "content": "KYC DOCUMENTATION STATUS — KYC-20240225-8832\n\nClient: Raj Patel (Client ID: CLI-55102)\nAccount Type: Corporate Trust Account\nRisk Tier: Medium-High\n\nRecent Transfer:\n  Amount: $275,000.00\n  Type: Incoming International Wire\n  Source: Patel Holdings Ltd. (Mumbai, India)\n  Date: 2024-02-25\n\nKYC Documentation on File:\n  ✓ Government-Issued Photo ID (Passport) — Verified 2023-04-12\n  ✓ Proof of Address (Utility Bill) — Verified 2023-04-12\n  ✓ Corporate Registration Documents — Verified 2023-04-10\n  ✓ Beneficial Ownership Declaration — Verified 2023-04-10\n  ✓ Source of Funds Declaration — Verified 2023-04-10\n  ✓ W-8BEN-E Tax Form — Filed 2023-04-15\n\nKYC Refresh Schedule:\n  Risk Tier Medium-High: Refresh required every 12 months\n  Last Full Refresh: 2023-04-12\n  Next Refresh Due: 2024-04-12 (46 days from now)\n\nEnhanced Due Diligence (EDD):\n  Status: Completed 2023-04-15\n  PEP Screening: Clear\n  Sanctions Screening: Clear\n  Adverse Media: Clear"
                 }
             }
         ],
@@ -78,7 +82,8 @@
                 "data": {
                     "id": "qt_fin_risk_03",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Should this wire transfer be escalated for anti-money-laundering review?"
+                    "questionText": "Should this wire transfer be escalated for anti-money-laundering review?",
+                    "content": "WIRE TRANSFER RECORD — WIR-20240224-6109\n\nSender:\n  Name: GlobalTech Solutions Inc.\n  Account: ACCT-88412 (Business Checking)\n  Bank: First National Bank, Delaware\n\nRecipient:\n  Name: GlobalTech Solutions Inc.\n  Account: ACCT-88412-INT (Business Savings)\n  Bank: First National Bank, Delaware (same institution)\n\nTransfer Details:\n  Amount: $18,500.00 USD\n  Type: Domestic Wire (Internal Transfer)\n  Date: 2024-02-24\n  Reference: Q1-2024 Operating Reserve\n\nBeneficial Owner Verification:\n  Both accounts share the same beneficial owner:\n    Michael Torres (CEO, 100% ownership)\n    Verified via corporate filings 2023-11-20\n\nAML Thresholds:\n  CTR Filing Required: Transactions ≥ $10,000\n  SAR Consideration: Unusual patterns or structuring\n  This transfer: $18,500 (above CTR threshold but below SAR patterns)\n\nTransaction History (Same Accounts, Last 30 Days):\n  2024-02-01: $15,000 (internal transfer)\n  2024-02-15: $12,000 (internal transfer)\n  2024-02-24: $18,500 (THIS TRANSFER)\n  Pattern: Regular monthly operating fund transfers"
                 }
             },
             {
@@ -86,7 +91,8 @@
                 "data": {
                     "id": "qt_fin_compliance_03",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Does the disclosed fee structure meet transparency requirements?"
+                    "questionText": "Does the disclosed fee structure meet transparency requirements?",
+                    "content": "FEE DISCLOSURE DOCUMENT — FEE-20240223-2947\n\nClient: Elena Vasquez (Client ID: CLI-33891)\nAccount Type: Managed Portfolio (Discretionary)\nAUM: $1,200,000\n\nDisclosed Fee Structure:\n  Management Fee: 1.25% annually ($15,000/year)\n    - Billed quarterly in arrears\n    - Clearly stated in advisory agreement (Section 4.2)\n    - Fee schedule provided at account opening\n\n  Performance Fee: 15% of returns above S&P 500 benchmark\n    - Calculation period: Calendar year\n    - High-water mark: Yes\n    - Calculation methodology: NOT DOCUMENTED\n    - Client acknowledgment of performance fee: Signed\n    - Detailed formula provided to client: No\n\n  Trading Costs:\n    - Commission per trade: $4.95\n    - Disclosed in fee schedule: Yes\n\nRegulatory Requirements (SEC/ADV Part 2A):\n  - All fees must be clearly disclosed\n  - Performance fee methodology must be explained in detail\n  - Clients must understand how performance fees are calculated\n  - High-water mark provisions must be documented\n\nCompliance Review Notes:\n  Last review: 2023-09-01\n  Finding: 'Performance fee calculation needs additional documentation'\n  Status: UNRESOLVED"
                 }
             }
         ],
@@ -112,7 +118,8 @@
                 "data": {
                     "id": "qt_code_security_01",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Does this function properly sanitize user input before database queries?"
+                    "questionText": "Does this function properly sanitize user input before database queries?",
+                    "content": "# File: app/services/user_service.py\n\nfrom sqlalchemy.orm import Session\nfrom app.models import User\nfrom app.schemas import UserQuery\n\ndef search_users(db: Session, query: UserQuery) -> list[User]:\n    \"\"\"Search users based on query parameters.\"\"\"\n    base_query = db.query(User)\n    \n    if query.name:\n        base_query = base_query.filter(\n            User.name.ilike(f\"%{query.name}%\")\n        )\n    \n    if query.email:\n        base_query = base_query.filter(\n            User.email == query.email\n        )\n    \n    if query.department_id:\n        base_query = base_query.filter(\n            User.department_id == query.department_id\n        )\n    \n    return base_query.order_by(User.created_at.desc()).limit(50).all()"
                 }
             },
             {
@@ -120,7 +127,8 @@
                 "data": {
                     "id": "qt_code_quality_01",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Does this code follow the single responsibility principle?"
+                    "questionText": "Does this code follow the single responsibility principle?",
+                    "content": "# File: app/api/endpoints/dashboard.py\n\nfrom fastapi import APIRouter, Depends, HTTPException, Request\nfrom sqlalchemy.orm import Session\nfrom app.core.security import verify_token, check_permissions\nfrom app.models import User, AuditLog\nimport hashlib\nimport time\n\nrouter = APIRouter()\n\n@router.get(\"/dashboard\")\nasync def get_dashboard(request: Request, db: Session = Depends(get_db)):\n    # --- Authentication ---\n    token = request.headers.get(\"Authorization\", \"\").replace(\"Bearer \", \"\")\n    if not token:\n        raise HTTPException(status_code=401, detail=\"Missing token\")\n    \n    payload = verify_token(token)\n    if not payload:\n        raise HTTPException(status_code=401, detail=\"Invalid token\")\n    \n    user_id = payload.get(\"sub\")\n    \n    # --- Authorization ---\n    user = db.query(User).filter(User.id == user_id).first()\n    if not user:\n        raise HTTPException(status_code=404, detail=\"User not found\")\n    \n    if not check_permissions(user, \"dashboard:read\"):\n        raise HTTPException(status_code=403, detail=\"Insufficient permissions\")\n    \n    # --- Data Retrieval ---\n    total_users = db.query(User).count()\n    active_users = db.query(User).filter(User.is_active == True).count()\n    recent_signups = db.query(User).filter(\n        User.created_at >= time.time() - 86400\n    ).count()\n    \n    # --- Audit Logging ---\n    audit = AuditLog(\n        user_id=user_id,\n        action=\"dashboard_view\",\n        ip_address=request.client.host,\n        timestamp=time.time()\n    )\n    db.add(audit)\n    db.commit()\n    \n    return {\n        \"total_users\": total_users,\n        \"active_users\": active_users,\n        \"recent_signups\": recent_signups,\n        \"user_role\": user.role\n    }"
                 }
             }
         ],
@@ -146,7 +154,8 @@
                 "data": {
                     "id": "qt_code_security_02",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Are API keys and secrets properly managed and not hardcoded?"
+                    "questionText": "Are API keys and secrets properly managed and not hardcoded?",
+                    "content": "# File: app/config.py\n\nimport os\n\nclass Settings:\n    APP_NAME = \"MyApp\"\n    DEBUG = True\n    \n    # Database\n    DB_HOST = os.getenv(\"DB_HOST\", \"localhost\")\n    DB_PORT = int(os.getenv(\"DB_PORT\", \"5432\"))\n    DB_NAME = os.getenv(\"DB_NAME\", \"myapp_db\")\n    DB_USER = os.getenv(\"DB_USER\", \"postgres\")\n    DB_PASSWORD = os.getenv(\"DB_PASSWORD\", \"postgres\")\n    \n    # AWS\n    AWS_ACCESS_KEY_ID = \"AKIAIOSFODNN7EXAMPLE\"\n    AWS_SECRET_ACCESS_KEY = \"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY\"\n    AWS_REGION = \"us-east-1\"\n    S3_BUCKET = \"myapp-uploads\"\n    \n    # Stripe\n    STRIPE_SECRET_KEY = \"HARDCODED_STRIPE_KEY_DO_NOT_USE\"\n    STRIPE_WEBHOOK_SECRET = \"whsec_abcdef123456\"\n    \n    # JWT\n    JWT_SECRET = os.getenv(\"JWT_SECRET\", \"change-me-in-production\")\n    JWT_ALGORITHM = \"HS256\"\n    JWT_EXPIRY_HOURS = 24\n\nsettings = Settings()"
                 }
             },
             {
@@ -154,7 +163,8 @@
                 "data": {
                     "id": "qt_code_quality_02",
                     "questionType": "single_choice_with_reasoning",
-                    "questionText": "Is error handling comprehensive enough for production use?"
+                    "questionText": "Is error handling comprehensive enough for production use?",
+                    "content": "# File: app/services/payment_service.py\n\nimport stripe\nimport logging\nfrom app.models import Payment, User\nfrom app.database import get_session\n\nlogger = logging.getLogger(__name__)\n\nclass PaymentService:\n    def process_payment(self, user_id: int, amount: float, currency: str = \"usd\"):\n        try:\n            session = get_session()\n            user = session.query(User).get(user_id)\n            \n            try:\n                charge = stripe.Charge.create(\n                    amount=int(amount * 100),\n                    currency=currency,\n                    customer=user.stripe_customer_id,\n                    description=f\"Payment for user {user_id}\"\n                )\n            except:\n                return {\"status\": \"failed\"}\n            \n            payment = Payment(\n                user_id=user_id,\n                amount=amount,\n                stripe_charge_id=charge.id,\n                status=\"completed\"\n            )\n            \n            try:\n                session.add(payment)\n                session.commit()\n            except:\n                session.rollback()\n                return {\"status\": \"db_error\"}\n            \n            return {\"status\": \"success\", \"charge_id\": charge.id}\n            \n        except Exception as e:\n            return {\"status\": \"error\", \"message\": str(e)}"
                 }
             }
         ],

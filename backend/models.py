@@ -8,6 +8,7 @@ class QuestionData(BaseModel):
     id: str
     questionType: str
     questionText: str
+    content: Optional[str] = None
 
 
 class Question(BaseModel):

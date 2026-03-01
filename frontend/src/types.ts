@@ -39,11 +39,17 @@ export interface QueueSubmission {
   evaluation_count: number;
 }
 
+export interface QuestionAnswer {
+  choice: string;
+  reasoning: string | null;
+}
+
 export interface QuestionTemplate {
   question_template_id: string;
   question_text: string;
   question_type: string;
   assigned_judge_ids: number[];
+  answer: QuestionAnswer | null;
 }
 
 export interface JudgeAssignment {
