@@ -3,7 +3,7 @@ import json
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 
-DATABASE_PATH = "ai_judge.db"
+DATABASE_PATH = "gavelai.db"
 
 
 async def init_db():
@@ -84,6 +84,24 @@ async def init_db():
                 created_at TEXT NOT NULL,
                 FOREIGN KEY (submission_id) REFERENCES submissions(id),
                 FOREIGN KEY (judge_id) REFERENCES judges(id)
+            )
+        """)
+        
+        # Review queue table (human-in-the-loop escalation)
+        await db.execute("""
+            CREATE TABLE IF NOT EXISTS review_queue (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                submission_id TEXT NOT NULL,
+                question_template_id TEXT NOT NULL,
+                escalation_reasons TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'pending',
+                human_verdict TEXT,
+                human_comment TEXT,
+                reviewed_by TEXT,
+                created_at TEXT NOT NULL,
+                reviewed_at TEXT,
+                FOREIGN KEY (submission_id) REFERENCES submissions(id),
+                UNIQUE(submission_id, question_template_id)
             )
         """)
         

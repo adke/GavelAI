@@ -104,3 +104,37 @@ export interface QueueStatsResponse {
   [queueId: string]: QueueJudgeStats[];
 }
 
+// Review queue types (human-in-the-loop)
+export type ReviewStatus = "pending" | "approved" | "overridden";
+export type EscalationReason = "low_confidence" | "judge_disagreement" | "inconclusive";
+
+export interface ReviewItem {
+  id: number;
+  submission_id: string;
+  question_template_id: string;
+  escalation_reasons: EscalationReason[];
+  status: ReviewStatus;
+  human_verdict: VerdictType | null;
+  human_comment: string | null;
+  reviewed_by: string | null;
+  created_at: string;
+  reviewed_at: string | null;
+  question_text: string | null;
+  answer_choice: string | null;
+  answer_reasoning: string | null;
+  evaluations: Evaluation[];
+}
+
+export interface HumanVerdict {
+  verdict: VerdictType;
+  comment?: string;
+  reviewed_by?: string;
+}
+
+export interface ReviewQueueStats {
+  total_pending: number;
+  total_reviewed: number;
+  approved_count: number;
+  overridden_count: number;
+}
+

@@ -101,7 +101,7 @@ REASONING: Brief explanation of your decision`;
           value={formData.system_prompt}
           onChange={(e) => setFormData({ ...formData, system_prompt: e.target.value })}
           required
-          placeholder="Instructions for the AI judge..."
+          placeholder="Instructions for the GavelAI judge..."
         />
         <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm text-blue-800">

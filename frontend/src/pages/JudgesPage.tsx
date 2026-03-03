@@ -120,7 +120,7 @@ export default function JudgesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white shadow-xl flex-1 mr-6">
-          <h1 className="text-4xl font-bold mb-3">AI Judges</h1>
+          <h1 className="text-4xl font-bold mb-3">GavelAI Judges</h1>
           <p className="text-indigo-100 text-lg">
             Create and manage AI evaluators with custom prompts
           </p>

@@ -2,7 +2,7 @@
 
 # Frontend Start Script
 
-echo "Starting AI Judge Frontend..."
+echo "Starting GavelAI Frontend..."
 
 # Install dependencies if node_modules doesn't exist
 if [ ! -d "node_modules" ]; then

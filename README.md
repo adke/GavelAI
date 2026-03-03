@@ -86,7 +86,7 @@ curl http://localhost:11434/api/tags
 
 1. **Upload Submissions**: Navigate to the Upload Data page and upload a JSON file with submissions (see `sample_input.json` for format)
 
-2. **Create AI Judges**: Go to the Judges page and create judges with custom system prompts and model selection
+2. **Create GavelAI Judges**: Go to the Judges page and create judges with custom system prompts and model selection
 
 3. **Assign Judges**: On the Assignments page, assign judges to specific questions within queues
 
@@ -134,4 +134,4 @@ evaluations (id, submission_id, question_template_id, judge_id, verdict, reasoni
 - **First Run**: May be slow as Ollama loads the model into memory
 - **Model Size**: Larger models (70B) require significant RAM
 - **Recommended Models**: llama2, mistral, phi (smaller, faster)
-- **Database Location**: `backend/ai_judge.db` (can be deleted to reset)
+- **Database Location**: `backend/gavelai.db` (can be deleted to reset)

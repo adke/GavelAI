@@ -9,6 +9,9 @@ import type {
   Evaluation,
   EvaluationStats,
   RunEvaluationResponse,
+  ReviewItem,
+  HumanVerdict,
+  ReviewQueueStats,
 } from "./types";
 
 const API_BASE = "/api";
@@ -169,6 +172,42 @@ export async function getEvaluationStats(filters: {
 
 export async function getQueueStats(): Promise<import("./types").QueueStatsResponse> {
   return fetchApi<import("./types").QueueStatsResponse>("/evaluations/stats/by-queue");
+}
+
+// Review Queue API
+export async function getReviewQueue(filters: {
+  status?: string;
+  reason?: string;
+  limit?: number;
+  offset?: number;
+} = {}): Promise<ReviewItem[]> {
+  const params = new URLSearchParams();
+  if (filters.status) params.append("status", filters.status);
+  if (filters.reason) params.append("reason", filters.reason);
+  if (filters.limit) params.append("limit", String(filters.limit));
+  if (filters.offset) params.append("offset", String(filters.offset));
+
+  const queryString = params.toString();
+  const endpoint = queryString ? `/review-queue?${queryString}` : "/review-queue";
+  return fetchApi<ReviewItem[]>(endpoint);
+}
+
+export async function getReviewQueueStats(): Promise<ReviewQueueStats> {
+  return fetchApi<ReviewQueueStats>("/review-queue/stats");
+}
+
+export async function getReviewItem(id: number): Promise<ReviewItem> {
+  return fetchApi<ReviewItem>(`/review-queue/${id}`);
+}
+
+export async function submitHumanVerdict(
+  id: number,
+  verdict: HumanVerdict
+): Promise<{ message: string }> {
+  return fetchApi<{ message: string }>(`/review-queue/${id}/verdict`, {
+    method: "POST",
+    body: JSON.stringify(verdict),
+  });
 }
 
 // Ollama API

@@ -135,7 +135,7 @@ export default function ResultsPage() {
       <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-white shadow-xl">
         <h1 className="text-4xl font-bold mb-3">Evaluation Results</h1>
         <p className="text-green-100 text-lg">
-          Analyze AI judge performance and verdicts
+          Analyze GavelAI judge performance and verdicts
         </p>
       </div>
 
@@ -391,7 +391,7 @@ export default function ResultsPage() {
             <p className="text-gray-600">
               {hasFilters
                 ? 'Try adjusting your filters'
-                : 'Run AI judges on your submissions to see results here'}
+                : 'Run GavelAI judges on your submissions to see results here'}
             </p>
           </div>
         </div>

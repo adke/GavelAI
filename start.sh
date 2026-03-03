@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# AI Judge - Start Script
+# GavelAI - Start Script
 # This script starts both backend and frontend servers
 
-echo "🚀 Starting AI Judge Application..."
+echo "🚀 Starting GavelAI Application..."
 echo ""
 
 # Check if Ollama is running
@@ -49,7 +49,7 @@ echo "✅ Frontend started (PID: $FRONTEND_PID) on http://localhost:5173"
 cd ..
 
 echo ""
-echo "✨ AI Judge is ready!"
+echo "✨ GavelAI is ready!"
 echo ""
 echo "📝 Access the application at: http://localhost:5173"
 echo "📡 Backend API at: http://localhost:8000"

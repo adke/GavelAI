@@ -165,7 +165,7 @@ export default function AssignmentsPage() {
       <div className="space-y-6 animate-fade-in">
         <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-white shadow-xl">
           <h1 className="text-4xl font-bold mb-3">Judge Assignments</h1>
-          <p className="text-purple-100 text-lg">Assign AI judges to evaluate questions</p>
+          <p className="text-purple-100 text-lg">Assign GavelAI judges to evaluate questions</p>
         </div>
         <div className="card">
           <div className="text-center py-16">
@@ -187,7 +187,7 @@ export default function AssignmentsPage() {
       <div className="space-y-6 animate-fade-in">
         <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-white shadow-xl">
           <h1 className="text-4xl font-bold mb-3">Judge Assignments</h1>
-          <p className="text-purple-100 text-lg">Assign AI judges to evaluate questions</p>
+          <p className="text-purple-100 text-lg">Assign GavelAI judges to evaluate questions</p>
         </div>
         <div className="card">
           <div className="text-center py-16">
@@ -231,7 +231,7 @@ export default function AssignmentsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span>Run AI Judges</span>
+              <span>Run GavelAI Judges</span>
             </>
           )}
         </button>

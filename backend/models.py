@@ -105,6 +105,7 @@ class RunEvaluationResponse(BaseModel):
     planned: int
     completed: int
     failed: int
+    escalated: int = 0
     errors: List[str]
 
 
@@ -120,4 +121,40 @@ class QuestionTemplate(BaseModel):
     question_text: str
     question_type: str
     assigned_judge_ids: List[int]
+
+
+# Review queue models (human-in-the-loop)
+EscalationReason = Literal["low_confidence", "judge_disagreement", "inconclusive"]
+ReviewStatus = Literal["pending", "approved", "overridden"]
+HumanVerdictType = Literal["pass", "fail", "inconclusive"]
+
+
+class ReviewItemResponse(BaseModel):
+    id: int
+    submission_id: str
+    question_template_id: str
+    escalation_reasons: List[str]
+    status: str
+    human_verdict: Optional[str] = None
+    human_comment: Optional[str] = None
+    reviewed_by: Optional[str] = None
+    created_at: str
+    reviewed_at: Optional[str] = None
+    question_text: Optional[str] = None
+    answer_choice: Optional[str] = None
+    answer_reasoning: Optional[str] = None
+    evaluations: List[EvaluationResponse] = []
+
+
+class HumanVerdictRequest(BaseModel):
+    verdict: HumanVerdictType
+    comment: Optional[str] = None
+    reviewed_by: str = "reviewer"
+
+
+class ReviewQueueStats(BaseModel):
+    total_pending: int
+    total_reviewed: int
+    approved_count: int
+    overridden_count: int
 

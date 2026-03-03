@@ -2,7 +2,7 @@
 
 # Backend Start Script
 
-echo "Starting AI Judge Backend..."
+echo "Starting GavelAI Backend..."
 
 # Activate virtual environment if it exists
 if [ -d "venv" ]; then

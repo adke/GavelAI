@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import UploadPage from './pages/UploadPage';
 import JudgesPage from './pages/JudgesPage';
 import AssignmentsPage from './pages/AssignmentsPage';
+import ReviewQueuePage from './pages/ReviewQueuePage';
 import ResultsPage from './pages/ResultsPage';
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
               </div>
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                  AI Judge
+                  GavelAI
                 </h1>
                 <p className="text-xs text-gray-400">Intelligent Evaluation</p>
               </div>
@@ -57,7 +58,7 @@ function App() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
-                <span className="font-medium">AI Judges</span>
+                <span className="font-medium">GavelAI Judges</span>
               </NavLink>
 
               <NavLink
@@ -74,6 +75,22 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
                 <span className="font-medium">Assignments</span>
+              </NavLink>
+
+              <NavLink
+                to="/review"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg scale-105'
+                      : 'hover:bg-gray-800 hover:translate-x-1'
+                  }`
+                }
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+                <span className="font-medium">Review Queue</span>
               </NavLink>
 
               <NavLink
@@ -102,6 +119,7 @@ function App() {
               <Route path="/" element={<UploadPage />} />
               <Route path="/judges" element={<JudgesPage />} />
               <Route path="/assignments" element={<AssignmentsPage />} />
+              <Route path="/review" element={<ReviewQueuePage />} />
               <Route path="/results" element={<ResultsPage />} />
             </Routes>
           </div>

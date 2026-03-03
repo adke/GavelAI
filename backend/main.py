@@ -11,9 +11,11 @@ from models import (
     Submission, JudgeCreate, JudgeUpdate, JudgeResponse,
     JudgeAssignment, AssignmentResponse, EvaluationResponse,
     EvaluationStats, RunEvaluationRequest, RunEvaluationResponse,
-    QueueInfo, QuestionTemplate
+    QueueInfo, QuestionTemplate,
+    ReviewItemResponse, HumanVerdictRequest, ReviewQueueStats,
 )
 from ollama_client import OllamaClient, parse_verdict
+from review import check_and_escalate, get_review_queue_items, get_review_item, submit_verdict, get_review_stats
 
 
 @asynccontextmanager
@@ -24,7 +26,7 @@ async def lifespan(app: FastAPI):
     # Shutdown (if needed in the future)
 
 
-app = FastAPI(title="AI Judge API", lifespan=lifespan)
+app = FastAPI(title="GavelAI API", lifespan=lifespan)
 
 # CORS middleware
 app.add_middleware(
@@ -272,7 +274,7 @@ async def get_queue_questions(queue_id: str):
 
 @app.post("/api/judges", response_model=JudgeResponse)
 async def create_judge(judge: JudgeCreate):
-    """Create a new AI judge."""
+    """Create a new GavelAI judge."""
     db = await get_db()
     try:
         created_at = datetime.now().isoformat()
@@ -451,11 +453,12 @@ async def assign_judges(assignment: JudgeAssignment):
 
 @app.post("/api/evaluations/run", response_model=RunEvaluationResponse)
 async def run_evaluations(request: RunEvaluationRequest):
-    """Run AI judges on all submissions in a queue."""
+    """Run GavelAI judges on all submissions in a queue."""
     db = await get_db()
     planned = 0
     completed = 0
     failed = 0
+    escalated = 0
     errors = []
     
     try:
@@ -581,11 +584,20 @@ CONFIDENCE: [0-100, where 100 means absolute certainty in your verdict]"""
                         failed += 1
                         error_msg = f"Error running judge '{judge_name}': {str(e)}"
                         errors.append(error_msg)
+                
+                # After all judges for this (submission, question) pair, check escalation
+                try:
+                    was_escalated = await check_and_escalate(db, sub_id, q_template_id)
+                    if was_escalated:
+                        escalated += 1
+                except Exception:
+                    pass
         
         return RunEvaluationResponse(
             planned=planned,
             completed=completed,
             failed=failed,
+            escalated=escalated,
             errors=errors[:10]  # Limit error messages
         )
     finally:
@@ -796,6 +808,61 @@ async def get_queue_stats():
                 })
         
         return result
+    finally:
+        await db.close()
+
+
+# ==================== Review Queue Endpoints ====================
+
+@app.get("/api/review-queue", response_model=List[ReviewItemResponse])
+async def list_review_queue(
+    status: Optional[str] = Query(None),
+    reason: Optional[str] = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+):
+    """List review queue items with optional filters."""
+    db = await get_db()
+    try:
+        return await get_review_queue_items(db, status=status, reason=reason, limit=limit, offset=offset)
+    finally:
+        await db.close()
+
+
+@app.get("/api/review-queue/stats", response_model=ReviewQueueStats)
+async def review_queue_stats():
+    """Get aggregate review queue statistics."""
+    db = await get_db()
+    try:
+        return await get_review_stats(db)
+    finally:
+        await db.close()
+
+
+@app.get("/api/review-queue/{review_id}", response_model=ReviewItemResponse)
+async def get_review_queue_item(review_id: int):
+    """Get a single review queue item with full context."""
+    db = await get_db()
+    try:
+        item = await get_review_item(db, review_id)
+        if not item:
+            raise HTTPException(status_code=404, detail="Review item not found")
+        return item
+    finally:
+        await db.close()
+
+
+@app.post("/api/review-queue/{review_id}/verdict")
+async def post_human_verdict(review_id: int, request: HumanVerdictRequest):
+    """Submit a human verdict for a review queue item."""
+    db = await get_db()
+    try:
+        updated = await submit_verdict(
+            db, review_id, request.verdict, request.comment, request.reviewed_by
+        )
+        if not updated:
+            raise HTTPException(status_code=404, detail="Review item not found")
+        return {"message": "Verdict submitted successfully"}
     finally:
         await db.close()
 
